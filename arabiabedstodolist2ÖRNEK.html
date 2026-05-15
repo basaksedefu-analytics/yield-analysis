@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ArabiaBeds Türkiye Envanter Optimizasyonu – İş Planı</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; background-color: #f5f5f7; padding: 20px;}
+    .wrap{max-width: 600px; margin: 0 auto; background: #ffffff; padding:2rem; border-radius: 16px; box-shadow: 0 4px 20px rgba(0,0,0,0.05);}
+    .header{margin-bottom:1.5rem}
+    .header h1{font-size:13px;font-weight:500;color:#86868b;letter-spacing:.08em;text-transform:uppercase;margin-bottom:4px}
+    .header h2{font-size:22px;font-weight:600;color:#1d1d1f}
+    .progress-bar-wrap{margin-top:12px;display:flex;align-items:center;gap:10px}
+    .progress-bar{flex:1;height:6px;background:#e8e8ed;border-radius:3px}
+    .progress-fill{height:100%;border-radius:3px;background:#0071e3;transition:width .3s ease}
+    .progress-label{font-size:13px;font-weight:600;color:#1d1d1f;min-width:35px;text-align:right}
+    .tabs{display:flex;gap:4px;margin-bottom:1.25rem;border-bottom:.5px solid #d2d2d7;overflow-x: auto; white-space: nowrap; padding-bottom: 4px;}
+    .tab{font-size:13px;padding:8px 14px;cursor:pointer;color:#86868b;border:none;background:none;border-bottom:2px solid transparent;transition:all .15s}
+    .tab.active{color:#0071e3;font-weight:600;border-bottom-color:#0071e3}
+    .tab:hover:not(.active){color:#1d1d1f}
+    .section{margin-bottom:1.25rem}
+    .section-title{font-size:12px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:#86868b;margin-bottom:10px;display:flex;align-items:center;gap:6px}
+    .section-title i{font-size:16px; color:#0071e3}
+    .tasks{display:flex;flex-direction:column;gap:4px}
+    .task-item{display:flex;align-items:flex-start;gap:10px;padding:10px;border-radius:8px;cursor:pointer;transition:background .12s;border:.5px solid #e8e8ed; background: #fafafa}
+    .task-item:hover{background:#f5f5f7}
+    .task-item.checked{opacity:.5; background: #f5f5f7}
+    .checkbox{width:18px;height:18px;min-width:18px;border-radius:6px;border:1.5px solid #d2d2d7;display:flex;align-items:center;justify-content:center;margin-top:1px;transition:all .15s; background: #fff}
+    .checkbox.done{background:#34c759;border-color:#34c759}
+    .checkbox i{font-size:12px;color:#fff; display:none}
+    .checkbox.done i{display:block}
+    .task-text{font-size:14px;color:#1d1d1f;line-height:1.45;flex:1}
+    .task-text.checked{text-decoration:line-through; color:#86868b}
+    .sub-items{margin-left:4px;margin-top:6px;display:flex;flex-wrap:wrap;gap:4px}
+    .sub-tag{font-size:11px;padding:2px 8px;border-radius:6px;background:#e8e8ed;color:#1d1d1f;font-weight: 500}
+    .kpi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:8px}
+    .kpi-card{background:#f5f5f7;border-radius:8px;padding:10px 12px;display:flex;align-items:center;gap:8px; border:.5px solid #e8e8ed}
+    .kpi-icon{font-size:18px;color:#0071e3}
+    .kpi-text{font-size:12px;color:#86868b;line-height:1.3}
+    .kpi-dir{font-size:12px;font-weight:600;color:#1d1d1f}
+    .divider{height:.5px;background:#d2d2d7;margin:1rem 0}
+    .panel{display:none}.panel.active{display:block}
+  </style>
+</head>
+<body>
+
+<div class="wrap">
+  <div class="header">
+    <h1>ArabiaBeds</h1>
+    <h2>Türkiye Envanter Optimizasyonu</h2>
+    <div style="font-size:13px;color:#86868b;margin-top:3px">Mayıs 2026 – Mayıs 2027 &nbsp;·&nbsp; İş Planı</div>
+    <div class="progress-bar-wrap">
+      <div class="progress-bar"><div class="progress-fill" id="prog-fill" style="width:0%"></div></div>
+      <div class="progress-label" id="prog-label">0%</div>
+    </div>
+  </div>
+
+  <div class="tabs">
+    <button class="tab active" onclick="showTab('t30')">İlk 30 Gün</button>
+    <button class="tab" onclick="showTab('t60')">İlk 60 Gün</button>
+    <button class="tab" onclick="showTab('tsup')">Supplier</button>
+    <button class="tab" onclick="showTab('tmkt')">Pazarlama</button>
+    <button class="tab" onclick="showTab('t12')">12 Ay Hedefi</button>
+    <button class="tab" onclick="showTab('tkpi')">KPI</button>
+  </div>
+
+  <div id="t30" class="panel active">
+    <div class="section">
+      <div class="section-title"><i class="ti ti-plane"></i>Uçuş Kapasitesi Analizi</div>
+      <div class="tasks">
+        <div class="task-item" onclick="toggle(this)">
+          <div class="checkbox"><i class="ti ti-check"></i></div>
+          <div style="flex:1">
+            <div class="task-text">Körfez → Türkiye haftalık uçuş sayısı ve koltuk kapasitesini çıkar</div>
+            <div class="sub-items">
+              <span class="sub-tag">Irak anlaşması (195 uçuş)</span><span class="sub-tag">Qatar Airways A321neo</span><span class="sub-tag">THY kriz takibi</span>
+            </div>
+          </div>
+        </div>
+        <div class="task-item" onclick="toggle(this)">
+          <div class="checkbox"><i class="ti ti-check"></i></div>
+          <div style="flex:1">
+            <div class="task-text">Trabzon Havalimanı dış hat Körfez yoğunluğu ve sezonluk akış kontrolü</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="divider"></div>
+    <div class="section">
+      <div class="section-title"><i class="ti ti-chart-bar"></i>Mevcut Satış Verisi Analizi</div>
+      <div class="tasks">
+        <div class="task-item" onclick="toggle(this)">
+          <div class="checkbox"><i class="ti ti-check"></i></div>
+          <div style="flex:1">
+            <div class="task-text">Global Bedbank pazar verilerini (62.4 Milyar$) yönetim sunumuna entegre et</div>
+          </div>
+        </div>
+        <div class="task-item" onclick="toggle(this)">
+          <div class="checkbox"><i class="ti ti-check"></i></div>
+          <div style="flex:1">
+            <div class="task-text">D-EDGE Dağıtım Raporu ve B2B Markup metodolojisini doğrula</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="t60" class="panel">
+    <div class="section">
+      <div class="section-title"><i class="ti ti-building"></i>İstanbul — Statik Kontrat Yönetimi</div>
+      <div class="tasks">
+        <div class="task-item" onclick="toggle(this)">
+          <div class="checkbox"><i class="ti ti-check"></i></div>
+          <div style="flex:1">
+            <div class="task-text">İstanbul Havalimanı mesafe ve VIP transfer parametrelerine göre rezidans kontratlarını imzala</div>
+            <div class="sub-items"><span class="sub-tag">Şişli</span><span class="sub-tag">Florya</span><span class="sub-tag">Nişantaşı</span><span class="sub-tag">Basın Ekspres</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="divider"></div>
+    <div class="section">
+      <div class="section-title"><i class="ti ti-sun"></i>Antalya — Bölgesel Dağıtım Yapısı</div>
+      <div class="tasks">
+        <div class="task-item" onclick="toggle(this)">
+          <div class="checkbox"><i class="ti ti-check"></i></div>
+          <div style="flex:1">
+            <div class="task-text">Büyük resort zincirlerini statik/dinamik kırılımında optimize et</div>
+            <div class="sub-items"><span class="sub-tag">Rixos</span><span class="sub-tag">Titanic</span><span class="sub-tag">Delphin</span><span class="sub-tag">Concorde</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="tsup" class="panel">
+    <div class="section">
+      <div class="section-title"><i class="ti ti-layers-difference"></i>Supplier ve Seyahat Teknolojileri</div>
+      <div class="tasks">
+        <div class="task-item" onclick="toggle(this)">
+          <div class="checkbox"><i class="ti ti-check"></i></div>
+          <div style="flex:1">
+            <div class="task-text">almatar Group Next-Generation dağıtım ağında çoklu supplier entegrasyonu sağla</div>
+          </div>
+        </div>
+        <div class="task-item" onclick="toggle(this)">
+          <div class="checkbox"><i class="ti ti-check"></i></div>
+          <div style="flex:1">
+            <div class="task-text">Juniper ve B2B Channel Management 2026 kılavuzuna göre veri temizliğini tamamla</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="tmkt" class="panel">
+    <div class="section">
+      <div class="section-title"><i class="ti ti-speakerphone"></i>Körfez Pazarlama Stratejileri</div>
+      <div class="tasks">
+        <div class="task-item" onclick="toggle(this)">
+          <div class="checkbox"><i class="ti ti-check"></i></div>
+          <div style="flex:1">
+            <div class="task-text">Körfez ülkeleri ortak vize (Schengen Modeli Birleşik Turist Vizesi) fırsatını kampanyalara ekle</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="t12" class="panel">
+    <div class="section">
+      <div class="section-title"><i class="ti ti-briefcase"></i>Yıllık Ticari Dönüşüm</div>
+      <div class="tasks">
+        <div class="task-item" onclick="toggle(this)">
+          <div class="checkbox"><i class="ti ti-check"></i></div>
+          <div style="flex:1"><div class="task-text">Uzakrota Seyahat Ödülleri marka gücünü kullanarak kontrat onboarding süresini %30 düşür</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="tkpi" class="panel">
+    <div class="section">
+      <div class="section-title"><i class="ti ti-target"></i>Ölçülecek KPI'lar</div>
+      <div class="kpi-grid">
+        <div class="kpi-card"><i class="ti ti-trending-up kpi-icon"></i><div><div class="kpi-text">Conversion rate</div><div class="kpi-dir">↑ Hedef: +%12-15</div></div></div>
+        <div class="kpi-card"><i class="ti ti-coin kpi-icon"></i><div><div class="kpi-text">Kârlılık Marjı</div><div class="kpi-dir">↑ %5 - %20 Arası</div></div></div>
+        <div class="kpi-card"><i class="ti ti-file-invoice kpi-icon"></i><div><div class="kpi-text">Direkt Kontrat</div><div class="kpi-dir">↑ %30 Üretim</div></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const allTasks=document.querySelectorAll('.task-item');
+function updateProgress(){
+  const done=[...allTasks].filter(t=>t.classList.contains('checked')).length;
+  const pct=Math.round(done/allTasks.length*100);
+  document.getElementById('prog-fill').style.width=pct+'%';
+  document.getElementById('prog-label').textContent=pct+'%';
+}
+function toggle(el){
+  const cb=el.querySelector('.checkbox');
+  const txt=el.querySelector('.task-text');
+  el.classList.toggle('checked');
+  cb.classList.toggle('done');
+  if(txt) txt.classList.toggle('checked');
+  updateProgress();
+}
+function showTab(id){
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  event.target.classList.add('active');
+}
+updateProgress();
+</script>
+</body>
+</html>
